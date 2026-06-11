@@ -50,7 +50,7 @@ app = CustomFastAPI(
     description="Hybrid RAG search over CV profiles with agent tooling",
     version=environments.VERSION,
     debug=environments.DEBUG,
-    # lifespan=lifespan,
+    lifespan=lifespan,
 )
 
 app.add_middleware(
