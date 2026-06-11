@@ -1,0 +1,14 @@
+node_modules/
+.venv/
+venv/
+dist/
+build/
+coverage/
+.next/
+.cache/
+.pytest_cache/
+.mypy_cache/
+.pyright_cache/
+.ruff_cache/
+__pycache__/
+*.ipynb

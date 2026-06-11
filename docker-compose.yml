@@ -1,0 +1,63 @@
+version: "3.8"
+
+services:
+  # redis:
+  #   image: redis:7-alpine
+  #   ports:
+  #     - "6399:6379"
+  #   volumes:
+  #     - ./redis_data:/data
+  #   command: redis-server --appendonly yes --user redis
+  #   restart: unless-stopped
+  #   user: "1000:1000"
+  #   healthcheck:
+  #     test: ["CMD", "redis-cli", "ping"]
+  #     interval: 10s
+  #     timeout: 5s
+  #     retries: 5
+
+  qdrant:
+    image: qdrant/qdrant:v1.18.0
+    ports:
+      - "6343:6333"
+      - "6344:6334"
+    volumes:
+      - ./qdrant_data:/qdrant/storage
+    restart: unless-stopped
+
+  # worker_1:
+  #   build:
+  #     context: .
+  #     dockerfile: .docker/Dockerfile
+  #   container_name: taskiq-worker-1
+  #   environment:
+  #     - REDIS_URL=redis://redis:6379
+  #     - TASKIQ_WORKER_ONLY=true
+  #   command: uv run taskiq worker taskiq_service.broker:broker --reload --log-level=INFO
+  #   volumes:
+  #     - ./app:/app/app
+  #     - ./shared:/app/shared
+  #     - ./taskiq_service:/app/taskiq_service
+  #     - ./.env:/app/.env
+  #   depends_on:
+  #     redis:
+  #       condition: service_healthy
+  #   restart: unless-stopped
+  # worker_2:
+  #   build:
+  #     context: .
+  #     dockerfile: .docker/Dockerfile
+  #   container_name: taskiq-worker-2
+  #   environment:
+  #     - REDIS_URL=redis://redis:6379
+  #     - TASKIQ_WORKER_ONLY=true
+  #   command: uv run taskiq worker taskiq_service.broker:broker --reload --log-level=INFO
+  #   volumes:
+  #     - ./app:/app/app
+  #     - ./shared:/app/shared
+  #     - ./taskiq_service:/app/taskiq_service
+  #     - ./.env:/app/.env
+  #   depends_on:
+  #     redis:
+  #       condition: service_healthy
+  #   restart: unless-stopped

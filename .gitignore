@@ -1,0 +1,85 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+*.egg
+
+# Pytest
+.pytest_cache/
+.pytest_cache/*
+*.coverage
+
+# Build artifacts
+dist/
+tmp/
+
+# Virtual Environment
+.venv/
+venv/
+ENV/
+
+# IDE
+.idea/
+*.swp
+*.swo
+.history/
+.history/*
+.vscode/PythonImportHelper-v2-Completion.json
+.cursor/rules
+.cursor/plans
+
+# OS
+.DS_Store
+Thumbs.db 
+
+# Database
+*.db
+*.sqlite3 
+
+# Configuration
+scripts/users_config.json
+
+# Coverage
+.github/badges/coverage.svg
+!.github/badges/coverage.txt
+
+development.env
+
+# Logs
+logs/*
+!logs/.gitkeep
+app.log
+*.log
+*logs.txt
+*test-results.xml
+
+# Docs
+docs/erd
+docs/mkdocs
+lucid_verifier/docs/assets/images/generated
+
+# Certificate and key files
+*.pem
+
+# Environment variables
+.env
+*.env
+
+# Redis
+redis_data/
+
+# Qdrant
+qdrant_data/
+
+# Generated GraphQL client
+app/core/graphql/twenty/client/
+
+# LangGraph API
+.langgraph_api
+
+# Test files
+test.py
+test*.py

@@ -1,0 +1,86 @@
+name: "Configure Job Environment and Secrets"
+inputs:
+  secrets:
+    description: "GitHub Secrets"
+    required: true
+    type: string
+  environment:
+    description: "Environment for execution"
+    required: true
+    type: string
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set Common Environments
+      uses: 2mc-org/env-handler-action@v1
+      env:
+        ENVIRONMENT: ${{ inputs.environment }}
+      with:
+        secrets: ${{ inputs.secrets }}
+        script: |
+          set_env --name=ENVIRONMENT \
+            --value=${{ env.ENVIRONMENT }}
+
+          set_env --name=ENVIRONMENT_LOWER --valueToLowerCase \
+            --value=${{ env.ENVIRONMENT }}
+
+          set_env --name=BRANCH_NAME \
+            --value=${{ github.ref_name }}
+
+          set_env --name=GITHUB_TOKEN --mask \
+            --value="$(get_secret REPO_TOKEN || get_runner_secret REPO_TOKEN_2MC)"
+
+    - name: Set Docker Environments
+      uses: 2mc-org/env-handler-action@v1
+      with:
+        secrets: ${{ inputs.secrets }}
+        script: |
+          set_env --name=DOCKER_REPOSITORY \
+            --value="2muchcoffee/upwork-crm-api"
+
+          set_env --name=DOCKER_USERNAME \
+            --value="2muchcoffee"
+
+          set_env --name=DOCKER_PASS --mask \
+            --value="$(get_secret DOCKER_PASS || get_runner_secret DOCKER_PASS_2MC)"
+
+          set_env --name=DOCKER_IMAGE_TAG \
+            --value="${{ env.ENVIRONMENT_LOWER }}-${{ github.run_number }}"
+
+          set_env --name=DOCKER_STACK_NAME \
+            --value="upwork-crm-${{ env.ENVIRONMENT_LOWER }}"
+            
+          set_env --name=DOCKER_FILE_NAME \
+            --value="docker-stack.yml"
+
+    - name: Set SSH Environments
+      uses: 2mc-org/env-handler-action@v1
+      with:
+        secrets: ${{ inputs.secrets }}
+        script: |
+          set_env --name=SSH_HOST \
+            --value="144.76.176.67"
+
+          set_env --name=SSH_USER \
+            --value="internal"
+
+          set_env --name=SSH_DEPLOY_PATH \
+            --value="/home/internal/www/upwork-crm/upwork-crm-api"
+
+          set_env --name=SSH_DATA_FOLDERS \
+            --value="redis_data logs"
+
+          set_env --name=SSH_KEY --mask --logLines=1 \
+            --value="$(get_secret SSH_KEY || get_runner_secret SSH_PROD_KEY_2MC)"
+
+    - name: Handle Secret Files
+      uses: 2mc-org/env-handler-action@v1
+      with:
+        script: |
+          save_file --file=".env" \
+            --content="$(get_variable ${{ env.ENVIRONMENT }}_ENV)"
+
+          save_env_from_file --file=".env" \
+            --name=APP_PORT \
+            --key=PORT

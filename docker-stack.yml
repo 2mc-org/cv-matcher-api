@@ -1,0 +1,63 @@
+version: "3.8"
+
+services:
+  api:
+    image: 2muchcoffee/upwork-crm-api:${TAG}
+    env_file: .env
+    environment:
+      - NO_COLOR=true
+    ports:
+      - $PORT:$PORT
+    command: make run-prod
+    volumes:
+      - ./logs:/app/logs
+    networks:
+      - default
+      - databases
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.labels.node-1 == true
+  migration:
+    image: 2muchcoffee/upwork-crm-api:${TAG}
+    env_file: .env
+    restart: on-failure
+    environment:
+      - NO_COLOR=true
+    command: make db-up
+    networks:
+      - default
+      - databases
+    deploy:
+      restart_policy:
+        condition: on-failure
+      replicas: 1
+      placement:
+        constraints:
+          - node.labels.node-1 == true
+
+  redis:
+    image: redis:7-alpine
+    volumes:
+      - ./redis_data:/data
+    command: redis-server --appendonly yes --user redis
+    restart: unless-stopped
+    user: "1000:1000"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    deploy:
+      restart_policy:
+        condition: on-failure
+      replicas: 1
+      placement:
+        constraints:
+          - node.labels.node-1 == true
+
+networks:
+  databases:
+    external:
+      name: databases_network

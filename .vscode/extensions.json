@@ -1,0 +1,11 @@
+{
+  "recommendations": [
+    "ms-python.python",
+    "detachhead.basedpyright",
+    "charliermarsh.ruff"
+  ],
+  "unwantedRecommendations": [
+    "anysphere.cursorpyright",
+    "ms-python.vscode-pylance"
+  ]
+}

@@ -1,0 +1,14 @@
+name: Prod Workflow
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main-bak
+
+jobs:
+  common-workflow:
+    uses: ./.github/workflows/common.yml
+    secrets: inherit
+    with:
+      environment: PROD

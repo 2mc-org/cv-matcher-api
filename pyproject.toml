@@ -1,0 +1,110 @@
+[project]
+name = "cv-matcher"
+version = "0.1.0"
+description = "CV profile search and matching API with hybrid RAG and agent tooling"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "fastapi[standard]>=0.136.1",
+    "pydantic-settings>=2.14.1",
+    "sqlalchemy>=2.0.49",
+    "sqlmodel>=0.0.38",
+    "redis>=7.4.0",
+    "httpx>=0.28.1",
+    "taskiq-fastapi>=0.5.0",
+    "taskiq-redis>=1.2.2",
+    "dependency-injector>=4.49.0",
+    "alembic>=1.18.4",
+    "asyncpg>=0.31.0",
+    "psycopg2-binary>=2.9.12",
+    "greenlet>=3.5.0",
+    "scrapy>=2.15.2",
+    "xai-sdk>=1.12.2",
+    "ariadne-codegen>=0.18.0",
+    "graphql-core>=3.2.8",
+    "python-socketio>=5.16.1",
+    "html2text>=2025.4.15",
+    "langgraph>=1.2.4",
+    "langchain>=1.3.4",
+    "langchain-core>=1.4.1",
+    "langchain-anthropic>=1.4.4",
+    "langgraph-checkpoint-postgres>=3.1.0",
+    "psycopg[binary,pool]>=3.3.4",
+    "langchain-xai>=1.2.2",
+    "qdrant-client>=1.18.0",
+    "fastembed>=0.8.0",
+]
+
+[tool.setuptools.packages.find]
+exclude = []
+
+[project.optional-dependencies]
+dev = [
+    "basedpyright>=1.29.0",
+    "debugpy>=1.8.20",
+    "pydantic>=2.13.4",
+    "ruff>=0.15.13",
+    "taskiq[reload]>=0.12.4",
+]
+
+[tool.ruff]
+line-length = 80
+target-version = "py314"
+preview = true
+extend-exclude = [
+    "**/app/core/graphql/twenty/client/**",
+    "**/tmp/**",
+    "**/.venv/**",
+    "**/__pycache__/**",
+    "**/.pyright_cache/**",
+    "**/.ruff_cache/**",
+    "**/.pytest_cache/**",
+    "**/redis_data/**",
+    "**/saved_html/**",
+]
+
+[tool.ruff.lint]
+extend-select = ["I"]
+# TRY002: no bare `raise Exception`/`BaseException`
+# BLE001: no blind `except Exception`/`BaseException`
+# B008: no function calls in parameter defaults
+# G201: prefer `logger.exception()` over `logger.error(..., exc_info=True)`
+ignore = ["TRY002", "BLE001", "B008", "G201"]
+
+[tool.ruff.lint.per-file-ignores]
+"alembic/env.py" = ["F401"]
+"app/**/models/base.py" = ["UP045"]
+
+[tool.basedpyright]
+pythonVersion = "3.14"
+typeCheckingMode = "standard"
+useLibraryCodeForTypes = true
+include = ["app", "alembic"]
+exclude = [
+    "tmp",
+    ".venv",
+    "**/__pycache__",
+    "**/*.pyc",
+    "**/app/core/graphql/twenty/client",
+    ".pytest_cache",
+    ".pyright_cache",
+    ".ruff_cache",
+    "redis_data",
+    "saved_html",
+]
+# exclude still analyzes open files
+ignore = [".venv", "**/app/core/graphql/twenty/client"]
+
+
+[tool.ariadne-codegen]
+schema_path = "app/core/graphql/twenty/schema.graphql"
+queries_path = "app/core/graphql/twenty/queries/"
+target_package_name = "client"
+client_name = "TwentyClient"
+target_package_path = "app/core/graphql/twenty"
+include_all_inputs = false
+include_all_enums = false
+plugins = [
+    "ariadne_codegen.contrib.shorter_results.ShorterResultsPlugin",
+    "ariadne_codegen.contrib.client_forward_refs.ClientForwardRefsPlugin",
+]

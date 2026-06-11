@@ -1,0 +1,12 @@
+/.idea
+/.git
+/var
+/.venv
+/.benchmarks
+/.pytest_cache
+/.ruff_cache
+/.vscode
+/redis_data
+/.mypy_cache
+/.pyright_cache
+/.vscode

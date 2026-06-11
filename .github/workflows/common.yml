@@ -1,0 +1,107 @@
+name: Common Workflow
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
+
+jobs:
+  build:
+    runs-on: &default_runner 2mc-self-hosted
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Configure Job Environment and Secrets
+        uses: ./.github/actions/config
+        with:
+          environment: ${{ inputs.environment }}
+          secrets: ${{ toJson(secrets) }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Log in to Docker Hub Container Registry
+        uses: docker/login-action@v3
+        with:
+          username: ${{ env.DOCKER_USERNAME }}
+          password: ${{ env.DOCKER_PASS }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v6
+        env:
+          DOCKER_BUILD_RECORD_UPLOAD: false
+        with:
+          context: .
+          file: .docker/Dockerfile
+          push: true
+          tags: ${{ env.DOCKER_REPOSITORY }}:${{ env.DOCKER_IMAGE_TAG }}
+
+  deploy:
+    runs-on: *default_runner
+    needs: [build]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Configure Job Environment and Secrets
+        uses: ./.github/actions/config
+        with:
+          environment: ${{ inputs.environment }}
+          secrets: ${{ toJson(secrets) }}
+
+      - name: Copy Secret Files to Server
+        uses: appleboy/scp-action@v1
+        with:
+          host: ${{ env.SSH_HOST }}
+          username: ${{ env.SSH_USER }}
+          key: ${{ env.SSH_KEY }}
+          target: ${{ env.SSH_DEPLOY_PATH }}
+          source: >
+            .env*,
+            docker-*.yml
+
+      - name: Pull Docker Image on Remote Server
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ env.SSH_HOST }}
+          username: ${{ env.SSH_USER }}
+          key: ${{ env.SSH_KEY }}
+          script: |
+            export DOCKER_CONFIG=$(mktemp -d)
+            echo ${{ env.DOCKER_PASS }} | docker login --username ${{ env.DOCKER_USERNAME }} --password-stdin
+            docker pull ${{ env.DOCKER_REPOSITORY }}:${{ env.DOCKER_IMAGE_TAG }}
+            docker logout
+
+      - name: Execute remote SSH commands
+        uses: appleboy/ssh-action@v1
+        env:
+          PORT: ${{ env.APP_PORT }}
+          TAG: ${{ env.DOCKER_IMAGE_TAG }}
+        with:
+          envs: >
+            PORT,
+            TAG,
+          host: ${{ env.SSH_HOST }}
+          username: ${{ env.SSH_USER }}
+          key: ${{ env.SSH_KEY }}
+          script: |
+            cd ${{ env.SSH_DEPLOY_PATH }}
+            mkdir -p ${{ env.SSH_DATA_FOLDERS }} 2>/dev/null
+
+            docker stack deploy -c ${{ env.DOCKER_FILE_NAME }} ${{ env.DOCKER_STACK_NAME }}
+
+  notify:
+    runs-on: *default_runner
+    needs: [build, deploy]
+    if: always()
+    steps:
+      - name: Slack Notification
+        uses: 2mc-org/slack-notify-action@v1
+        with:
+          results: "${{ join(needs.*.result, ' ') }}"
+          token: ${{ secrets.SLACK_BOT_TOKEN }}
+          runner-token: 'SLACK_BOT_TOKEN_2MC'
+          channel: '2mc-projects'
