@@ -37,7 +37,7 @@ runs:
         secrets: ${{ inputs.secrets }}
         script: |
           set_env --name=DOCKER_REPOSITORY \
-            --value="2muchcoffee/upwork-crm-api"
+            --value="2muchcoffee/cv-matcher-api"
 
           set_env --name=DOCKER_USERNAME \
             --value="2muchcoffee"
@@ -49,7 +49,7 @@ runs:
             --value="${{ env.ENVIRONMENT_LOWER }}-${{ github.run_number }}"
 
           set_env --name=DOCKER_STACK_NAME \
-            --value="upwork-crm-${{ env.ENVIRONMENT_LOWER }}"
+            --value="cv-matcher-${{ env.ENVIRONMENT_LOWER }}"
             
           set_env --name=DOCKER_FILE_NAME \
             --value="docker-stack.yml"
@@ -66,10 +66,10 @@ runs:
             --value="internal"
 
           set_env --name=SSH_DEPLOY_PATH \
-            --value="/home/internal/www/upwork-crm/upwork-crm-api"
+            --value="/home/internal/www/cv-matcher/cv-matcher-api"
 
           set_env --name=SSH_DATA_FOLDERS \
-            --value="redis_data logs"
+            --value="redis_data logs qdrant_data"
 
           set_env --name=SSH_KEY --mask --logLines=1 \
             --value="$(get_secret SSH_KEY || get_runner_secret SSH_PROD_KEY_2MC)"

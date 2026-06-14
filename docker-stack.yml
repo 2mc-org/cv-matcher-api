@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   api:
-    image: 2muchcoffee/upwork-crm-api:${TAG}
+    image: 2muchcoffee/cv-matcher-api:${TAG}
     env_file: .env
     environment:
       - NO_COLOR=true
@@ -19,8 +19,9 @@ services:
       placement:
         constraints:
           - node.labels.node-1 == true
+          
   migration:
-    image: 2muchcoffee/upwork-crm-api:${TAG}
+    image: 2muchcoffee/cv-matcher-api:${TAG}
     env_file: .env
     restart: on-failure
     environment:
@@ -49,6 +50,19 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    deploy:
+      restart_policy:
+        condition: on-failure
+      replicas: 1
+      placement:
+        constraints:
+          - node.labels.node-1 == true
+
+  qdrant:
+    image: qdrant/qdrant:v1.18.0
+    volumes:
+      - ./qdrant_data:/qdrant/storage
+    restart: unless-stopped
     deploy:
       restart_policy:
         condition: on-failure
