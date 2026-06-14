@@ -8,7 +8,7 @@ from typing import Annotated, Literal, Self
 from pydantic import BaseModel, ConfigDict, Field, TypeAdapter, computed_field
 
 from app.cv.enums.chunk_type import CvChunkType
-from app.cv.schemas.cv_snapshot import (
+from app.cv.models.cv_snapshot import (
     CvSnapshotCertificate,
     CvSnapshotEmployment,
     CvSnapshotEntry,

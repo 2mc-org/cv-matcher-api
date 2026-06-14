@@ -6,6 +6,7 @@ from fastapi import Depends
 
 from app.core.containers.core_container import CoreContainer
 from app.core.containers.repositories_container import RepositoriesContainer
+from app.core.containers.services_container import ServicesContainer
 from app.core.socket.emitter import SioEmitter
 from app.graph.core.containers.graph_container import GraphContainerBase
 from app.graph.core.services.graph_interrupt_service import (
@@ -13,6 +14,13 @@ from app.graph.core.services.graph_interrupt_service import (
 )
 from app.graph.core.services.job_graph_diagram_service import (
     JobGraphDiagramService,
+)
+from app.graph.cv_search_graph.services.classify_intent_service import (
+    ClassifyIntentService,
+)
+from app.graph.cv_search_graph.services.follow_up_service import FollowUpService
+from app.graph.cv_search_graph.services.rag_search_service import (
+    RagSearchService,
 )
 from app.graph.parent_graph.services.parent_graph_runner import (
     ParentGraphRunner,
@@ -32,6 +40,15 @@ class GraphServicesContainer(containers.DeclarativeContainer):
         providers.DependenciesContainer(),
     )
 
+    classify_intent_service = providers.Factory(ClassifyIntentService)
+    rag_search_service = providers.Factory(
+        RagSearchService,
+        cv_search_service=ServicesContainer.cv_search_service,
+    )
+    follow_up_service = providers.Factory(
+        FollowUpService,
+        cv_search_service=ServicesContainer.cv_search_service,
+    )
     job_graph_diagram_service = providers.Factory(
         JobGraphDiagramService,
         graph=graph_container.parent_graph,

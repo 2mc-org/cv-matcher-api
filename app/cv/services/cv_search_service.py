@@ -5,9 +5,9 @@ from __future__ import annotations
 import logging
 from collections import defaultdict
 
-from app.cv.schemas.cv_chunk import CV_CHUNK_PAYLOAD_ADAPTER
-from app.cv.schemas.cv_search_hit import CvSearchHit, CvSearchProfileResult
-from app.cv.schemas.cv_search_request import CvSearchRequest
+from app.cv.models.cv_chunk import CV_CHUNK_PAYLOAD_ADAPTER
+from app.cv.models.cv_search_hit import CvSearchHit, CvSearchProfileResult
+from app.cv.models.cv_search_request import CvSearchRequest
 from app.cv.services.cv_embedding_service import CvEmbeddingService
 from app.cv.services.cv_qdrant_repository import CvQdrantRepository
 

@@ -1,11 +1,18 @@
-"""Shared LangGraph state for parent_graph, job_page_handler, and proposal_handler."""
+"""Shared LangGraph state for parent_graph and cv_search_graph."""
 
 import traceback
-from typing import Any
-from uuid import UUID
+from typing import Annotated, Any
 
+from langchain_core.messages import AnyMessage
 from langgraph.errors import NodeError
+from langgraph.graph.message import add_messages
+from langmem.short_term import RunningSummary
 from pydantic import BaseModel, ConfigDict, Field
+
+from app.graph.cv_search_graph.enums.cv_search_phase import CvSearchPhase
+from app.graph.cv_search_graph.schemas.cv_search_intent_schema import (
+    CvSearchIntent,
+)
 
 
 class GraphNodeError(BaseModel):
@@ -32,42 +39,42 @@ class GraphNodeError(BaseModel):
         )
 
 
-class JobGraphContext(BaseModel):
+class GraphContext(BaseModel):
     """Per-invoke context (``ainvoke(..., context=...)``), not checkpointed."""
 
     socket_room: str
+    user_message: str = ""
 
 
-class JobGraphState(BaseModel):
-    """Graph state (checkpointed). Nodes return ``state.with_updates(...)``."""
+class GraphState(BaseModel):
+    """Graph state (checkpointed). Nodes return partial updates."""
 
     model_config = ConfigDict(arbitrary_types_allowed=True, extra="forbid")
 
     errors: list[GraphNodeError] = Field(default_factory=list)
 
-    # shared (parent routing, both handlers)
-    job_external_id: str = ""
-    session_hash: str = ""
+    cv_search_profile_ids: list[str] = Field(default_factory=list)
+    cv_search_phase: CvSearchPhase | None = None
+    cv_search_intent: CvSearchIntent | None = None
 
-    # job_page_handler
-    html: str = ""
-    job_id: UUID | None = None
+    # cv search chat history and summarized messages
+    cv_search_messages: Annotated[list[AnyMessage], add_messages] = Field(
+        default_factory=list,
+    )
+    cv_search_summarized_messages: list[AnyMessage] = Field(
+        default_factory=list
+    )
+    cv_search_running_summary: RunningSummary | None = None
 
-    client_identity_id: UUID | None = None
-    crm_imported_identity_hash: str | None = None
-
-    # proposal_handler
-    wants_proposal: bool = False
-    cv_id: UUID | None = None
-
-    def with_updates(self, patch: JobGraphState, /) -> dict[str, Any]:
+    @classmethod
+    def with_updates(cls, patch: GraphState, /) -> dict[str, Any]:
         """Partial state update: only set fields, JSON-safe for checkpoint."""
         return patch.model_dump(mode="json", include=patch.model_fields_set)
 
     def add_error(self, error: NodeError, /) -> dict[str, Any]:
         """Partial state update: append one ``GraphNodeError`` from a ``NodeError``."""
         return self.with_updates(
-            JobGraphState(
+            GraphState(
                 errors=[*self.errors, GraphNodeError.from_node_error(error)],
             ),
         )

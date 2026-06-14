@@ -33,6 +33,7 @@ dependencies = [
     "langchain-xai>=1.2.2",
     "qdrant-client>=1.18.0",
     "fastembed>=0.8.0",
+    "langmem>=0.0.30",
 ]
 
 [tool.setuptools.packages.find]
@@ -79,6 +80,7 @@ ignore = ["TRY002", "BLE001", "B008", "G201"]
 pythonVersion = "3.14"
 typeCheckingMode = "standard"
 useLibraryCodeForTypes = true
+executionEnvironments = [{ root = "." }]
 include = ["app", "alembic"]
 exclude = [
     "tmp",

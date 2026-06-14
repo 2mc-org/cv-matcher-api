@@ -11,31 +11,17 @@ from uuid import UUID
 
 from langchain_core.messages import BaseMessage, messages_to_dict
 from langgraph.checkpoint.serde.jsonplus import JsonPlusSerializer
-from langgraph.types import Interrupt
+from langgraph.types import Command, Interrupt, Send
+from langmem.short_term import RunningSummary
 from pydantic import BaseModel
-
-_JSON_TYPE = "json"
 
 
 class _UseMsgpackFallback(Exception):
     """Signal from ``to_json_value`` that this write must use upstream msgpack."""
 
 
-# For loads_typed only (legacy checkpoints written as msgpack + class extensions).
-_LEGACY_ALLOWED_MSGPACK_MODULES: list[Any] = [
-    # AsyncpgUUID,
-    # ("app.job.models.base", "BaseJob"),
-    # ("app.job.models.public", "JobPublic"),
-    # ("app.job.models.base", "Job"),
-    # ("app.client_identity.models.public", "ClientIdentityPublic"),
-    # (
-    #     "app.graph.job_page_handler.client_identify_graph.schemas.client_identity_schema",
-    #     "ClientIdentitySchema",
-    # ),
-    # (
-    #     "app.core.graphql.twenty.client.enums",
-    #     "OpportunityProjectTypeEnum",
-    # ),
+_ALLOWED_MSGPACK_MODULES: list[Any] = [
+    RunningSummary,
 ]
 
 
@@ -55,7 +41,7 @@ def to_json_value(value: Any) -> Any:
     """Recursively convert channel/checkpoint values to JSON-safe plain Python."""
     if value is None or isinstance(value, (bool, int, float, str)):
         return value
-    if isinstance(value, Interrupt):
+    if isinstance(value, (Interrupt, Send, Command, RunningSummary)):
         raise _UseMsgpackFallback()
     if isinstance(value, Enum):
         return value.value
@@ -88,14 +74,14 @@ def to_json_value(value: Any) -> Any:
 class GraphCheckpointJsonSerializer(JsonPlusSerializer):
     """JsonPlusSerializer that prefers ``json`` blobs for app/state types.
 
-    ``Interrupt`` in the value tree raises ``_UseMsgpackFallback``; the whole write
-    then uses upstream msgpack. Any other unsupported type raises ``TypeError``.
+    LangGraph control types (``Interrupt``, ``Send``, ``Command``) and
+    ``RunningSummary`` in the value tree raise ``_UseMsgpackFallback``; the whole
+    write then uses upstream msgpack. Any other unsupported type raises
+    ``TypeError``.
     """
 
     def __init__(self) -> None:
-        super().__init__(
-            allowed_msgpack_modules=_LEGACY_ALLOWED_MSGPACK_MODULES
-        )
+        super().__init__(allowed_msgpack_modules=_ALLOWED_MSGPACK_MODULES)
 
     def dumps_typed(self, obj: Any) -> tuple[str, bytes]:
         if obj is None or isinstance(obj, (bytes, bytearray)):
@@ -109,4 +95,4 @@ class GraphCheckpointJsonSerializer(JsonPlusSerializer):
         except _UseMsgpackFallback:
             return super().dumps_typed(obj)
 
-        return _JSON_TYPE, payload
+        return "json", payload

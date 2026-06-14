@@ -8,14 +8,14 @@ from pathlib import Path
 
 from pydantic import TypeAdapter
 
-from app.cv.schemas.cv_chunk import (
+from app.cv.models.cv_chunk import (
     CvCertificateChunkPayload,
     CvChunkPayload,
     CvEmploymentChunkPayload,
     CvProfileChunkPayload,
     CvSkillsChunkPayload,
 )
-from app.cv.schemas.cv_snapshot import CvSnapshotEntry
+from app.cv.models.cv_snapshot import CvSnapshotEntry
 from app.cv.services.cv_embedding_service import CvEmbeddingService
 from app.cv.services.cv_qdrant_repository import CvQdrantRepository
 

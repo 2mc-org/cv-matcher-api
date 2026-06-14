@@ -26,7 +26,7 @@ from qdrant_client.models import (
 
 from app.core.environments import environments
 from app.cv.enums.chunk_type import CvChunkType
-from app.cv.schemas.cv_chunk import CvChunkPayload
+from app.cv.models.cv_chunk import CvChunkPayload
 from app.cv.services.cv_embedding_service import CvEmbeddingService
 
 DENSE_VECTOR_NAME = "dense"

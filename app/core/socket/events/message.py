@@ -5,9 +5,10 @@ from pydantic import Field
 from app.core.socket.events.base import SioEventBase
 
 SioMessageTopic = Literal[
-    "job_handler:checkpoint",
-    "job_handler:crm:sync:env",
-    "job_handler:end",
+    "cv_search:checkpoint",
+    "cv_search:response",
+    "cv_search:validation_error",
+    "cv_search:off_topic_error",
 ]
 
 

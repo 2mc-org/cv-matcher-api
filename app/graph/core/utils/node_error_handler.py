@@ -10,7 +10,7 @@ from langgraph.errors import NodeError
 from langgraph.graph import END
 from langgraph.types import Command, Send
 
-from app.graph.core.states.job_graph_state import JobGraphState
+from app.graph.core.states.graph_state import GraphState
 
 GotoTarget = Hashable | Send | Sequence[Send | Hashable]
 
@@ -23,7 +23,7 @@ def node_error_handler(
     """Build an async error handler that records ``NodeError`` and routes to ``goto``."""
 
     async def handler(
-        state: JobGraphState,
+        state: GraphState,
         error: NodeError,
     ) -> Command[Hashable]:
         logger.exception(

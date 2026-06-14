@@ -5,15 +5,18 @@ import logging
 from fastapi import BackgroundTasks
 from langgraph.graph.state import RunnableConfig
 from langgraph.types import Command, Interrupt
-from pydantic import BaseModel
 from redis.asyncio import Redis
 from redis.asyncio.lock import Lock
 
+from app.cv.models.actions.search_cv_data import SearchCvData
+from app.cv.models.actions.submit_search_cv_extra_data import (
+    SubmitSearchCvExtraData,
+)
 from app.graph.core.services.graph_interrupt_service import (
     GraphInterruptService,
 )
-from app.graph.core.states.job_graph_state import JobGraphContext, JobGraphState
-from app.graph.core.types.job_compiled_graph import JobCompiledGraph
+from app.graph.core.states.graph_state import GraphContext, GraphState
+from app.graph.core.types.compiled_graph import CompiledGraph
 from app.interrupt_registry.enums.status import InterruptRegistryStatus
 from app.interrupt_registry.models.filters import InterruptRegistryFilters
 from app.interrupt_registry.services.interrupt_registry_service import (
@@ -23,23 +26,12 @@ from app.interrupt_registry.services.interrupt_registry_service import (
 logger = logging.getLogger(__name__)
 
 
-class HandleJobPage(BaseModel):
-    interrupt_id: str
-    job_external_id: str
-    session_hash: str
-
-
-class SubmitJobPageHtml(BaseModel):
-    interrupt_id: str
-    html: str
-
-
 class ParentGraphRunner:
     """Submit and run the parent LangGraph for one Upwork job page."""
 
     def __init__(
         self,
-        graph: JobCompiledGraph,
+        graph: CompiledGraph,
         redis: Redis,
         graph_interrupt_service: GraphInterruptService,
         interrupt_registry_service: InterruptRegistryService,
@@ -51,10 +43,10 @@ class ParentGraphRunner:
 
     async def submit(
         self,
-        data: HandleJobPage | SubmitJobPageHtml,
+        data: SearchCvData | SubmitSearchCvExtraData,
         background_tasks: BackgroundTasks,
     ) -> str:
-        if isinstance(data, SubmitJobPageHtml):
+        if isinstance(data, SubmitSearchCvExtraData):
             interrupt_registry = await self.interrupt_registry_service.fetch_one_with_filters_or_rise(
                 InterruptRegistryFilters(
                     interrupt_id=data.interrupt_id,
@@ -63,7 +55,7 @@ class ParentGraphRunner:
             )
             thread_id = interrupt_registry.thread_id
         else:
-            thread_id = data.job_external_id
+            thread_id = data.thread_id
 
         lock = self._redis.lock(
             f"job_graph_run:{thread_id}",
@@ -78,30 +70,34 @@ class ParentGraphRunner:
 
     async def _run(
         self,
-        data: HandleJobPage | SubmitJobPageHtml,
+        data: SearchCvData | SubmitSearchCvExtraData,
         lock: Lock,
         thread_id: str,
     ) -> None:
         interrupts: list[Interrupt] = []
-        output = JobGraphState()
+        output = GraphState()
 
         try:
-            if isinstance(data, HandleJobPage):
-                graph_input = JobGraphState(
-                    job_external_id=data.job_external_id,
-                    session_hash=data.session_hash,
-                    # html=data.html,
-                    errors=[],
-                )
-            else:
-                graph_input = Command(resume={data.interrupt_id: data.html})
-
-            context = JobGraphContext(socket_room=thread_id)
             config = RunnableConfig(
                 configurable={
                     "thread_id": thread_id,
                 },
             )
+
+            if isinstance(data, SearchCvData):
+                snapshot = await self._graph.aget_state(config)
+                graph_input = GraphState.model_validate(
+                    snapshot.values,
+                ).model_copy(
+                    update=GraphState.with_updates(GraphState(errors=[])),
+                )
+                context = GraphContext(
+                    socket_room=thread_id,
+                    user_message=data.message,
+                )
+            else:
+                graph_input = Command(resume={data.interrupt_id: data.data})
+                context = GraphContext(socket_room=thread_id)
 
             async for part in self._graph.astream(
                 graph_input,
@@ -115,7 +111,7 @@ class ParentGraphRunner:
                 part_interrupts = part.get("interrupts", ())
 
                 if part_type == "values":
-                    if isinstance(part_data, JobGraphState):
+                    if isinstance(part_data, GraphState):
                         output = part_data
                     interrupts.extend(part_interrupts)
 
@@ -127,9 +123,9 @@ class ParentGraphRunner:
                 return
 
             logger.info(
-                "Parent graph finished thread_id=%s job_id=%s",
+                "Parent graph finished thread_id=%s profile_count=%s",
                 thread_id,
-                output.job_id,
+                len(output.cv_search_profile_ids),
             )
 
         except Exception:

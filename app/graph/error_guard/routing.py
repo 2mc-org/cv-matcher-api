@@ -11,7 +11,7 @@ from app.graph.core.routing.conditional_edge import (
     ConditionalEdgeRouting,
     RouteSpec,
 )
-from app.graph.core.states.job_graph_state import JobGraphState
+from app.graph.core.states.graph_state import GraphState
 
 
 class ErrorsGuardRouting(ConditionalEdgeRouting):
@@ -27,7 +27,7 @@ class ErrorsGuardRouting(ConditionalEdgeRouting):
     )
 
     @classmethod
-    def route(cls, state: JobGraphState) -> ErrorsGuardRouting.Route:
+    def route(cls, state: GraphState) -> ErrorsGuardRouting.Route:
         if len(state.errors) > 0:
             return cls.Route.END
         return cls.Route.CONTINUE

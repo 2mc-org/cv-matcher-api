@@ -9,7 +9,7 @@ from langchain_core.runnables.graph import Graph as RunnableGraph
 from langchain_core.runnables.graph import Node as RunnableNode
 from langchain_core.runnables.graph_mermaid import draw_mermaid_png
 
-from app.graph.core.types.job_compiled_graph import JobCompiledGraph
+from app.graph.core.types.compiled_graph import CompiledGraph
 
 
 class _NestedGraphDrawable(Protocol):
@@ -180,7 +180,7 @@ class JobGraphDiagramService:
         r"(?<![\w])([\w]+(?:\\3a[\w]+)+)(?![\w])"
     )
 
-    def __init__(self, graph: JobCompiledGraph) -> None:
+    def __init__(self, graph: CompiledGraph) -> None:
         self._graph = graph
 
     def render_parent_png(

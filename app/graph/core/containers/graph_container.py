@@ -4,13 +4,13 @@ from dependency_injector import containers, providers
 from dependency_injector.wiring import Provide
 from fastapi import Depends
 
-from app.graph.core.types.job_compiled_graph import JobCompiledGraph
+from app.graph.core.types.compiled_graph import CompiledGraph
 
 
 class GraphContainerBase:
     """Typed provider names for graph DI (use with cast on DependenciesContainer slot)."""
 
-    parent_graph: providers.Provider[JobCompiledGraph | None]
+    parent_graph: providers.Provider[CompiledGraph | None]
 
 
 class GraphContainer(GraphContainerBase, containers.DeclarativeContainer):
@@ -20,6 +20,6 @@ class GraphContainer(GraphContainerBase, containers.DeclarativeContainer):
 
 
 JobGraphDependency = Annotated[
-    JobCompiledGraph,
+    CompiledGraph,
     Depends(Provide[GraphContainer.parent_graph]),
 ]

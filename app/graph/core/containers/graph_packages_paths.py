@@ -1,1 +1,3 @@
-GRAPH_PACKAGES_PATHS = []
+GRAPH_PACKAGES_PATHS = [
+    "app.graph.cv_search_graph",
+]

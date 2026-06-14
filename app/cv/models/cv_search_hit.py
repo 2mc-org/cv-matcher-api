@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from pydantic import BaseModel, ConfigDict, Field
 
-from app.cv.schemas.cv_chunk import CvChunkPayload
+from app.cv.models.cv_chunk import CvChunkPayload
 
 
 class CvSearchHit(BaseModel):
