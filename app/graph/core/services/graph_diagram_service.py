@@ -64,11 +64,15 @@ def _parent_graph_edge_labels() -> dict[str, str]:
     """Lazy import: routing modules pull ServicesContainer if imported too early."""
     # isort: off
     from app.graph.error_guard.routing import ErrorsGuardRouting
+    from app.graph.cv_search_graph.routing import CvSearchClassifyIntentRouting
     # isort: on
 
     return {
         route.value: label
-        for labels in (ErrorsGuardRouting.EDGE_LABELS,)
+        for labels in (
+            ErrorsGuardRouting.EDGE_LABELS,
+            CvSearchClassifyIntentRouting.EDGE_LABELS,
+        )
         for route, label in labels.items()
     }
 
@@ -169,7 +173,7 @@ def _sanitize_mermaid_edge_labels(mermaid: str) -> str:
     )
 
 
-class JobGraphDiagramService:
+class GraphDiagramService:
     """Render LangGraph parent diagram as PNG (Mermaid via LangGraph)."""
 
     _MERMAID_METADATA_PREFIXES: ClassVar[tuple[str, ...]] = (

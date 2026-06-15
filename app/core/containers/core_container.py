@@ -16,6 +16,7 @@ from app.graph.core.containers.graph_packages_paths import GRAPH_PACKAGES_PATHS
 class CoreContainer(containers.DeclarativeContainer):
     wiring_config = containers.WiringConfiguration(
         modules=[
+            "app.graph.router",
             "app.cv.router",
         ],
         packages=[

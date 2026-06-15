@@ -65,7 +65,7 @@ def compile_cv_search_graph() -> CompiledStateGraph[
         CvSearchNodes.FOLLOW_UP,
         follow_up,
         error_handler=node_error_handler(END),
-        metadata={"description": "Follow-up answer without RAG"},
+        metadata={"description": "Follow-up answer"},
     )
     graph.add_node(
         CvSearchNodes.FINALIZE_RESPONSE,

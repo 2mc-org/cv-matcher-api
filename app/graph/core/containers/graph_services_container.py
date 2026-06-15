@@ -9,11 +9,11 @@ from app.core.containers.repositories_container import RepositoriesContainer
 from app.core.containers.services_container import ServicesContainer
 from app.core.socket.emitter import SioEmitter
 from app.graph.core.containers.graph_container import GraphContainerBase
+from app.graph.core.services.graph_diagram_service import (
+    GraphDiagramService,
+)
 from app.graph.core.services.graph_interrupt_service import (
     GraphInterruptService,
-)
-from app.graph.core.services.job_graph_diagram_service import (
-    JobGraphDiagramService,
 )
 from app.graph.cv_search_graph.services.classify_intent_service import (
     ClassifyIntentService,
@@ -49,8 +49,8 @@ class GraphServicesContainer(containers.DeclarativeContainer):
         FollowUpService,
         cv_search_service=ServicesContainer.cv_search_service,
     )
-    job_graph_diagram_service = providers.Factory(
-        JobGraphDiagramService,
+    graph_diagram_service = providers.Factory(
+        GraphDiagramService,
         graph=graph_container.parent_graph,
     )
     graph_interrupt_registry_service = providers.Factory(
@@ -74,9 +74,9 @@ class GraphServicesContainer(containers.DeclarativeContainer):
     )
 
 
-JobGraphDiagramServiceDependency = Annotated[
-    JobGraphDiagramService,
-    Depends(Provide[GraphServicesContainer.job_graph_diagram_service]),
+GraphDiagramServiceDependency = Annotated[
+    GraphDiagramService,
+    Depends(Provide[GraphServicesContainer.graph_diagram_service]),
 ]
 
 ParentGraphRunnerDependency = Annotated[

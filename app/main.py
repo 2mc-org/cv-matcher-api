@@ -24,6 +24,7 @@ from app.graph.core.containers.graph_services_container import (
 from app.graph.core.lifespans.graph_checkpoint_lifespan import (
     graph_checkpoint_lifespan,
 )
+from app.graph.router import router as graph_router
 
 
 @asynccontextmanager
@@ -70,6 +71,7 @@ app.state.container_graph_services = container_graph_services
 app.state.container_services = container_services
 
 app.include_router(cv_router)
+app.include_router(graph_router)
 
 
 @app.get("/health")
