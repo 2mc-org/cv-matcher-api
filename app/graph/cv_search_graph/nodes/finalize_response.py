@@ -30,10 +30,10 @@ async def finalize_response(
 
     room = runtime.context.socket_room
     action = state.cv_search_intent.action
-    if action == CvSearchIntentRoute.RAG_SEARCH:
+    if action == CvSearchIntentRoute.MATCH_PROFILES:
         kind = "search"
         profile_ids = list(state.cv_search_profile_ids)
-    elif action == CvSearchIntentRoute.ANSWER:
+    elif action == CvSearchIntentRoute.FOLLOW_UP:
         kind = "follow_up"
         profile_ids = []
     else:

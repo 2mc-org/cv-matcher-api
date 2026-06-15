@@ -1,11 +1,11 @@
-"""Prompts for the rag_search node."""
+"""Prompts for the match_profiles node."""
 
 from __future__ import annotations
 
 
-def get_rag_search_system_prompt() -> str:
+def get_match_profiles_system_prompt() -> str:
     return """
-You are a CV RAG search specialist. Your only job is to find matching roster profiles.
+You are a CV matching specialist. Your only job is to find matching roster profiles.
 
 ## Search
 
@@ -32,7 +32,7 @@ Structure:
 """.strip()
 
 
-def get_rag_search_user_prompt(user_message: str) -> str:
+def get_match_profiles_user_prompt(user_message: str) -> str:
     return f"""
 ## Search task
 Find and rank CV profiles for the request below. Build or replace the shortlist.

@@ -19,8 +19,8 @@ from app.graph.cv_search_graph.services.classify_intent_service import (
     ClassifyIntentService,
 )
 from app.graph.cv_search_graph.services.follow_up_service import FollowUpService
-from app.graph.cv_search_graph.services.rag_search_service import (
-    RagSearchService,
+from app.graph.cv_search_graph.services.profile_match_service import (
+    ProfileMatchService,
 )
 from app.graph.parent_graph.services.parent_graph_runner import (
     ParentGraphRunner,
@@ -41,8 +41,8 @@ class GraphServicesContainer(containers.DeclarativeContainer):
     )
 
     classify_intent_service = providers.Factory(ClassifyIntentService)
-    rag_search_service = providers.Factory(
-        RagSearchService,
+    profile_match_service = providers.Factory(
+        ProfileMatchService,
         cv_search_service=ServicesContainer.cv_search_service,
     )
     follow_up_service = providers.Factory(

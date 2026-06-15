@@ -8,5 +8,5 @@ from enum import StrEnum
 class CvSearchIntentRoute(StrEnum):
     VALIDATION_ERROR = "intent:validation_error"
     OFF_TOPIC_ERROR = "intent:off_topic_error"
-    RAG_SEARCH = "intent:rag_search"
-    ANSWER = "intent:answer"
+    MATCH_PROFILES = "intent:match_profiles"
+    FOLLOW_UP = "intent:follow_up"

@@ -9,7 +9,7 @@ from app.graph.cv_search_graph.nodes import CvSearchNodes
 from app.graph.cv_search_graph.nodes.classify_intent import classify_intent
 from app.graph.cv_search_graph.nodes.finalize_response import finalize_response
 from app.graph.cv_search_graph.nodes.follow_up import follow_up
-from app.graph.cv_search_graph.nodes.rag_search import rag_search
+from app.graph.cv_search_graph.nodes.match_profiles import match_profiles
 from app.graph.cv_search_graph.nodes.reject_intent import reject_intent
 from app.graph.cv_search_graph.nodes.resolve_phase import resolve_phase
 from app.graph.cv_search_graph.nodes.summarize_messages import (
@@ -56,10 +56,10 @@ def compile_cv_search_graph() -> CompiledStateGraph[
         metadata={"description": "Reject validation/off-topic intent"},
     )
     graph.add_node(
-        CvSearchNodes.RAG_SEARCH,
-        rag_search,
+        CvSearchNodes.MATCH_PROFILES,
+        match_profiles,
         error_handler=node_error_handler(END),
-        metadata={"description": "RAG search + ranking"},
+        metadata={"description": "Find and rank matching profiles"},
     )
     graph.add_node(
         CvSearchNodes.FOLLOW_UP,
@@ -94,7 +94,10 @@ def compile_cv_search_graph() -> CompiledStateGraph[
         CvSearchClassifyIntentRouting.PATHS,
     )
     graph.add_edge(CvSearchNodes.REJECT_INTENT, END)
-    graph.add_edge(CvSearchNodes.RAG_SEARCH, CvSearchNodes.FINALIZE_RESPONSE)
+    graph.add_edge(
+        CvSearchNodes.MATCH_PROFILES,
+        CvSearchNodes.FINALIZE_RESPONSE,
+    )
     graph.add_edge(CvSearchNodes.FOLLOW_UP, CvSearchNodes.FINALIZE_RESPONSE)
     graph.add_edge(CvSearchNodes.FINALIZE_RESPONSE, END)
 

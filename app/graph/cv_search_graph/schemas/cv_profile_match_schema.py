@@ -1,11 +1,11 @@
-"""Structured output for the RAG search sub-agent."""
+"""Structured output for the match_profiles sub-agent."""
 
 from __future__ import annotations
 
 from pydantic import BaseModel, ConfigDict, Field
 
 
-class CvRagSearchResult(BaseModel):
+class CvProfileMatchResult(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     message: str = Field(

@@ -1,4 +1,4 @@
-"""Worker node: hybrid RAG search + ranking."""
+"""Worker node: find and rank profiles (first search or changed criteria)."""
 
 from __future__ import annotations
 
@@ -13,21 +13,21 @@ from app.graph.core.containers.graph_services_container import (
     GraphServicesContainer,
 )
 from app.graph.core.states.graph_state import GraphContext, GraphState
-from app.graph.cv_search_graph.services.rag_search_service import (
-    RagSearchService,
+from app.graph.cv_search_graph.services.profile_match_service import (
+    ProfileMatchService,
 )
 
 
 @inject
-async def rag_search(
+async def match_profiles(
     state: GraphState,
     runtime: Runtime[GraphContext],
-    rag_search_service: RagSearchService = Provide[
-        GraphServicesContainer.rag_search_service
+    profile_match_service: ProfileMatchService = Provide[
+        GraphServicesContainer.profile_match_service
     ],
 ) -> dict[str, Any]:
     user_message = runtime.context.user_message
-    result = await rag_search_service.search(state, user_message)
+    result = await profile_match_service.match(state, user_message)
 
     return state.with_updates(
         GraphState(

@@ -22,22 +22,22 @@ class CvSearchClassifyIntentRouting(ConditionalEdgeRouting):
         RouteSpec(
             Route.VALIDATION_ERROR,
             CvSearchNodes.REJECT_INTENT,
-            "intent:validation_error",
+            "not enough context for a CV search",
         ),
         RouteSpec(
             Route.OFF_TOPIC_ERROR,
             CvSearchNodes.REJECT_INTENT,
-            "intent:off_topic_error",
+            "message is not about CV search",
         ),
         RouteSpec(
-            Route.RAG_SEARCH,
-            CvSearchNodes.RAG_SEARCH,
-            "intent:rag_search",
+            Route.MATCH_PROFILES,
+            CvSearchNodes.MATCH_PROFILES,
+            "new search or criteria changed",
         ),
         RouteSpec(
-            Route.ANSWER,
+            Route.FOLLOW_UP,
             CvSearchNodes.FOLLOW_UP,
-            "intent:answer",
+            "question about existing shortlist",
         ),
     )
 
