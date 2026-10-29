@@ -35,7 +35,7 @@ Tool rules:
 1. Set subject_profile_ids to the profile ids your answer focuses on.
 2. Refer to candidates by profile_id from the shortlist.
 3. Keep answers concise and practical for proposal matching.
-4. Do not include profile ids, internal identifiers, or bracketed tokens such as `[~018deb5ee08fd93664]`.
+4. Do not include profile ids, internal identifiers, or bracketed tokens such as `[demo-01]`.
 """.strip()
 
 

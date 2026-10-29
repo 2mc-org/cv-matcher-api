@@ -1,4 +1,4 @@
-"""CV snapshot JSON models (``roster_profile_snapshot_*.json``)."""
+"""CV snapshot JSON models (``sample_profiles.json`` or a private snapshot)."""
 
 from __future__ import annotations
 

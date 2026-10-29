@@ -19,7 +19,7 @@ Answer the user's request directly — do not produce a generic CV summary.
 Include only facts from cv_search evidence that explain why this person matches
 what was asked (skills, seniority, domain, stack, etc.). Omit unrelated details.
 
-Do not include profile ids, internal identifiers, or bracketed tokens such as `[~018deb5ee08fd93664]`.
+Do not include profile ids, internal identifiers, or bracketed tokens such as `[demo-01]`.
 
 Structure:
 1. One short intro on how well the shortlist fits the specific request.
