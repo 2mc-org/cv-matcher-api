@@ -8,6 +8,7 @@ from pathlib import Path
 
 from pydantic import TypeAdapter
 
+from app.core.environments import environments
 from app.cv.models.cv_chunk import (
     CvCertificateChunkPayload,
     CvChunkPayload,
@@ -19,10 +20,8 @@ from app.cv.models.cv_snapshot import CvSnapshotEntry
 from app.cv.services.cv_embedding_service import CvEmbeddingService
 from app.cv.services.cv_qdrant_repository import CvQdrantRepository
 
-SNAPSHOT_PATH = (
-    Path(__file__).resolve().parent.parent
-    / "data"
-    / "roster_profile_snapshot_2026-06-10.json"
+DEFAULT_SNAPSHOT_PATH = (
+    Path(__file__).resolve().parent.parent / "data" / "sample_profiles.json"
 )
 
 
@@ -81,6 +80,11 @@ class CvIngestService:
         return self.ingest_entries(entries)
 
     def get_all_entries(self) -> list[CvSnapshotEntry]:
+        snapshot_path = (
+            Path(environments.CV_SNAPSHOT_PATH)
+            if environments.CV_SNAPSHOT_PATH
+            else DEFAULT_SNAPSHOT_PATH
+        )
         return TypeAdapter(list[CvSnapshotEntry]).validate_python(
-            json.loads(SNAPSHOT_PATH.read_text(encoding="utf-8")),
+            json.loads(snapshot_path.read_text(encoding="utf-8")),
         )

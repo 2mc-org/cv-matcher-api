@@ -39,6 +39,8 @@ class Settings(BaseSettings):
     # Qdrant vector DB (docker-compose maps host 6343 → container 6333)
     QDRANT_URL: str = "http://localhost:6343"
     QDRANT_CV_COLLECTION: str = "cv_chunks"
+    # Path to a private CV snapshot JSON; empty uses the bundled sample profiles
+    CV_SNAPSHOT_PATH: str = ""
     CV_EMBEDDING_MODEL: str = "BAAI/bge-large-en-v1.5"
     CV_SPARSE_EMBEDDING_MODEL: str = "prithivida/Splade_PP_en_v1"
 

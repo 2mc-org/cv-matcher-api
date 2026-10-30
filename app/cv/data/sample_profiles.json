@@ -1,0 +1,589 @@
+[
+  {
+    "profile": {
+      "id": "demo-01",
+      "fullName": "Demo Candidate 01",
+      "title": "Senior Angular and TypeScript Frontend Engineer",
+      "description": "Frontend engineer focused on large Angular applications: NgRx state, reusable component libraries, accessible forms and performance budgets. Comfortable leading a small frontend team and reviewing other people's code."
+    },
+    "skills": [
+      "Angular",
+      "TypeScript",
+      "RxJS",
+      "NgRx",
+      "Angular Material",
+      "SCSS",
+      "Jest",
+      "Cypress",
+      "Storybook",
+      "Webpack",
+      "Nx monorepo",
+      "REST APIs",
+      "GraphQL",
+      "Accessibility (WCAG)"
+    ],
+    "certificates": [
+      {
+        "name": "Frontend Architecture Workshop",
+        "description": "Multi-day workshop on micro-frontends, module boundaries and shared design systems."
+      },
+      {
+        "name": "Web Accessibility Fundamentals",
+        "description": "Course covering WCAG 2.2, keyboard navigation, ARIA patterns and screen reader testing."
+      }
+    ],
+    "employmentHistory": [
+      {
+        "companyName": "Logistics SaaS Company",
+        "jobTitle": "Senior Angular Developer",
+        "description": "Led the frontend of a fleet-tracking dashboard used by dispatchers. Introduced NgRx entity stores and cut initial load time by splitting routes into lazy modules."
+      },
+      {
+        "companyName": "Insurance Portal Startup",
+        "jobTitle": "Angular Developer",
+        "description": "Built a quote-and-bind flow with multi-step reactive forms, validation rules driven by a JSON schema, and Cypress end-to-end coverage."
+      },
+      {
+        "companyName": "Digital Agency",
+        "jobTitle": "Frontend Developer",
+        "description": "Delivered marketing sites and admin panels for several clients with Angular, SCSS and a shared component kit."
+      }
+    ]
+  },
+  {
+    "profile": {
+      "id": "demo-02",
+      "fullName": "Demo Candidate 02",
+      "title": "React Native Mobile Engineer (iOS and Android)",
+      "description": "Mobile engineer shipping React Native apps to both stores, from navigation and offline storage to push notifications and in-app purchases. Writes native modules when a library does not exist."
+    },
+    "skills": [
+      "React Native",
+      "TypeScript",
+      "Expo",
+      "Redux Toolkit",
+      "React Navigation",
+      "Push notifications",
+      "In-app purchases",
+      "Offline-first sync",
+      "Detox",
+      "Fastlane",
+      "Firebase",
+      "Swift (native modules)",
+      "Kotlin (native modules)"
+    ],
+    "certificates": [
+      {
+        "name": "Mobile CI/CD Bootcamp",
+        "description": "Hands-on course on Fastlane, code signing and automated store releases."
+      },
+      {
+        "name": "React Native Performance Clinic",
+        "description": "Profiling, bridge overhead and list virtualisation techniques for React Native."
+      }
+    ],
+    "employmentHistory": [
+      {
+        "companyName": "Fitness Tracking Startup",
+        "jobTitle": "Lead Mobile Developer",
+        "description": "Owned a workout-logging app with offline sync, HealthKit and Google Fit integration, and subscription billing through in-app purchases."
+      },
+      {
+        "companyName": "Food Delivery Marketplace",
+        "jobTitle": "React Native Developer",
+        "description": "Built courier and customer apps with live map tracking, background location and push notifications."
+      },
+      {
+        "companyName": "Event Ticketing Company",
+        "jobTitle": "Mobile Developer",
+        "description": "Implemented ticket wallet, QR scanning and deep links; moved the release process to Fastlane."
+      }
+    ]
+  },
+  {
+    "profile": {
+      "id": "demo-03",
+      "fullName": "Demo Candidate 03",
+      "title": "Python AI Engineer: LLM Applications, RAG and Agents",
+      "description": "Python engineer building production LLM features: retrieval-augmented generation over private documents, tool-calling agents, evaluation harnesses and cost controls. Prefers measurable retrieval quality over prompt folklore."
+    },
+    "skills": [
+      "Python",
+      "FastAPI",
+      "LangChain",
+      "LangGraph",
+      "RAG",
+      "Qdrant",
+      "pgvector",
+      "Embeddings",
+      "Hybrid search",
+      "Prompt engineering",
+      "LLM evaluation",
+      "OpenAI API",
+      "Anthropic API",
+      "PostgreSQL",
+      "Docker"
+    ],
+    "certificates": [
+      {
+        "name": "Applied Generative AI Specialisation",
+        "description": "Coursework on transformer basics, retrieval pipelines and responsible deployment."
+      },
+      {
+        "name": "Vector Search in Production",
+        "description": "Workshop on index tuning, hybrid retrieval and relevance evaluation."
+      }
+    ],
+    "employmentHistory": [
+      {
+        "companyName": "Legal Research Startup",
+        "jobTitle": "AI Engineer",
+        "description": "Built a RAG pipeline over contract archives with hybrid dense and sparse retrieval, reranking and citation links back to source passages."
+      },
+      {
+        "companyName": "Customer Support Platform",
+        "jobTitle": "Machine Learning Engineer",
+        "description": "Shipped a support copilot with tool calling, conversation memory summarisation and a nightly regression suite for answer quality."
+      },
+      {
+        "companyName": "Analytics Consultancy",
+        "jobTitle": "Python Developer",
+        "description": "Automated report generation with Python, SQL and LLM-assisted summaries for finance clients."
+      }
+    ]
+  },
+  {
+    "profile": {
+      "id": "demo-04",
+      "fullName": "Demo Candidate 04",
+      "title": "Full-Stack Engineer: Next.js, Supabase and Stripe",
+      "description": "Full-stack developer who takes SaaS products from prototype to paying customers: Next.js app router, Postgres with row-level security, Stripe subscriptions and transactional email. Comfortable cleaning up AI-generated prototype code."
+    },
+    "skills": [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Supabase",
+      "PostgreSQL",
+      "Row-level security",
+      "Stripe",
+      "Tailwind CSS",
+      "Vercel",
+      "Playwright",
+      "Resend",
+      "Zod",
+      "tRPC"
+    ],
+    "certificates": [
+      {
+        "name": "Postgres for Application Developers",
+        "description": "Indexing, query plans, migrations and row-level security for web apps."
+      }
+    ],
+    "employmentHistory": [
+      {
+        "companyName": "B2B Subscription Startup",
+        "jobTitle": "Full-Stack Developer",
+        "description": "Implemented plans, metered usage and a customer billing portal on Stripe, with webhooks handled idempotently."
+      },
+      {
+        "companyName": "Creator Tools Company",
+        "jobTitle": "Next.js Developer",
+        "description": "Rebuilt a prototype dashboard into a multi-tenant app with Supabase auth, roles and an audit log."
+      },
+      {
+        "companyName": "Freelance",
+        "jobTitle": "Web Developer",
+        "description": "Delivered landing pages, booking systems and internal tools for small businesses."
+      }
+    ]
+  },
+  {
+    "profile": {
+      "id": "demo-05",
+      "fullName": "Demo Candidate 05",
+      "title": "Node.js and NestJS Backend and Microservices Engineer",
+      "description": "Backend engineer designing event-driven services with NestJS, message queues and PostgreSQL. Cares about observability, contract tests and boring, dependable deployments."
+    },
+    "skills": [
+      "Node.js",
+      "NestJS",
+      "TypeScript",
+      "PostgreSQL",
+      "Redis",
+      "RabbitMQ",
+      "Kafka",
+      "gRPC",
+      "REST APIs",
+      "OpenAPI",
+      "Docker",
+      "Jest",
+      "OpenTelemetry",
+      "TypeORM"
+    ],
+    "certificates": [
+      {
+        "name": "Event-Driven Architecture Course",
+        "description": "Event sourcing, outbox pattern, idempotent consumers and schema evolution."
+      },
+      {
+        "name": "Node.js Services Certificate",
+        "description": "Course on streams, clustering, profiling and secure API design."
+      }
+    ],
+    "employmentHistory": [
+      {
+        "companyName": "Payments Processing Company",
+        "jobTitle": "Backend Developer",
+        "description": "Built reconciliation services consuming card-network files, with an outbox table guaranteeing at-least-once publishing."
+      },
+      {
+        "companyName": "Marketplace Startup",
+        "jobTitle": "Node.js Engineer",
+        "description": "Split a monolith into catalogue, orders and notification services communicating over RabbitMQ."
+      },
+      {
+        "companyName": "IoT Platform",
+        "jobTitle": "Software Engineer",
+        "description": "Ingested device telemetry through Kafka into time-partitioned PostgreSQL tables with retention jobs."
+      }
+    ]
+  },
+  {
+    "profile": {
+      "id": "demo-06",
+      "fullName": "Demo Candidate 06",
+      "title": "Product Designer for SaaS and Mobile Apps",
+      "description": "Product designer covering research, flows, interface design and a working design system in Figma. Hands over specs and tokens developers can build from without guessing."
+    },
+    "skills": [
+      "Figma",
+      "Design systems",
+      "Design tokens",
+      "User research",
+      "Wireframing",
+      "Prototyping",
+      "Information architecture",
+      "Mobile UI",
+      "Dashboard design",
+      "Usability testing",
+      "Accessibility",
+      "Branding basics"
+    ],
+    "certificates": [
+      {
+        "name": "UX Research Methods",
+        "description": "Interviews, survey design, card sorting and synthesis of findings."
+      },
+      {
+        "name": "Design Systems Practice",
+        "description": "Component libraries, token naming and governance for product teams."
+      }
+    ],
+    "employmentHistory": [
+      {
+        "companyName": "Productivity App Startup",
+        "jobTitle": "Product Designer",
+        "description": "Designed onboarding, a mobile capture flow and a web dashboard, then built the component library in Figma."
+      },
+      {
+        "companyName": "HR Software Company",
+        "jobTitle": "UI/UX Designer",
+        "description": "Redesigned an applicant tracking dashboard after moderated usability sessions with recruiters."
+      },
+      {
+        "companyName": "Branding Studio",
+        "jobTitle": "Visual Designer",
+        "description": "Produced identity systems and landing pages for early-stage companies."
+      }
+    ]
+  },
+  {
+    "profile": {
+      "id": "demo-07",
+      "fullName": "Demo Candidate 07",
+      "title": "Flutter Mobile Developer",
+      "description": "Flutter developer building cross-platform apps with clean architecture, Riverpod state management and platform channels where needed. Strong on animations and custom widgets."
+    },
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Riverpod",
+      "Bloc",
+      "Firebase",
+      "REST APIs",
+      "SQLite",
+      "Platform channels",
+      "Custom animations",
+      "Codemagic",
+      "Unit testing",
+      "Google Maps SDK"
+    ],
+    "certificates": [
+      {
+        "name": "Flutter Advanced Course",
+        "description": "State management patterns, testing strategy and performance tuning in Flutter."
+      }
+    ],
+    "employmentHistory": [
+      {
+        "companyName": "Language Learning App",
+        "jobTitle": "Flutter Developer",
+        "description": "Implemented lesson player, spaced-repetition scheduling and offline downloads."
+      },
+      {
+        "companyName": "Real Estate Listing Company",
+        "jobTitle": "Mobile Developer",
+        "description": "Built map-based search with clustering, saved searches and push alerts."
+      },
+      {
+        "companyName": "Agency",
+        "jobTitle": "Junior Mobile Developer",
+        "description": "Maintained several client apps and ported two of them from native Android to Flutter."
+      }
+    ]
+  },
+  {
+    "profile": {
+      "id": "demo-08",
+      "fullName": "Demo Candidate 08",
+      "title": "Bookkeeper and QuickBooks Online Advisor for Small Businesses",
+      "description": "Bookkeeper cleaning up books, setting up QuickBooks Online and running monthly close for small companies. Explains reports in plain language and hands clean files to the tax preparer."
+    },
+    "skills": [
+      "QuickBooks Online",
+      "Bank reconciliation",
+      "Accounts payable",
+      "Accounts receivable",
+      "Month-end close",
+      "Chart of accounts design",
+      "Sales tax tracking",
+      "Payroll basics",
+      "Expense categorisation",
+      "Financial reporting",
+      "Excel"
+    ],
+    "certificates": [
+      {
+        "name": "QuickBooks Online Certification",
+        "description": "Vendor-neutral practice certificate covering setup, reconciliation and reporting workflows."
+      },
+      {
+        "name": "Small Business Accounting Fundamentals",
+        "description": "Double-entry bookkeeping, accrual versus cash basis and financial statements."
+      }
+    ],
+    "employmentHistory": [
+      {
+        "companyName": "E-commerce Brand",
+        "jobTitle": "Part-Time Bookkeeper",
+        "description": "Reconciled marketplace payouts and payment-processor fees, and produced monthly profit-and-loss summaries."
+      },
+      {
+        "companyName": "Consulting Practice",
+        "jobTitle": "Bookkeeper",
+        "description": "Cleaned up two years of uncategorised transactions and set up recurring invoices and approval rules."
+      },
+      {
+        "companyName": "Accounting Firm",
+        "jobTitle": "Accounting Assistant",
+        "description": "Prepared reconciliations and supporting schedules for year-end review."
+      }
+    ]
+  },
+  {
+    "profile": {
+      "id": "demo-09",
+      "fullName": "Demo Candidate 09",
+      "title": "DevOps and Cloud Engineer: AWS, Terraform, Kubernetes",
+      "description": "Infrastructure engineer automating cloud environments with Terraform, running workloads on Kubernetes and keeping CI pipelines fast. Reduces cloud bills as a side effect of tidy architecture."
+    },
+    "skills": [
+      "AWS",
+      "Terraform",
+      "Kubernetes",
+      "Helm",
+      "Docker",
+      "GitHub Actions",
+      "ArgoCD",
+      "Prometheus",
+      "Grafana",
+      "Linux",
+      "Bash",
+      "Python",
+      "Cost optimisation",
+      "Secrets management"
+    ],
+    "certificates": [
+      {
+        "name": "Cloud Practitioner Foundations",
+        "description": "Introductory certification on core cloud services, billing and shared responsibility."
+      },
+      {
+        "name": "Kubernetes Administrator Preparation",
+        "description": "Cluster operations, networking, storage and troubleshooting."
+      }
+    ],
+    "employmentHistory": [
+      {
+        "companyName": "Video Streaming Startup",
+        "jobTitle": "DevOps Engineer",
+        "description": "Migrated services to Kubernetes with Helm charts and ArgoCD, and halved deployment time."
+      },
+      {
+        "companyName": "SaaS Analytics Company",
+        "jobTitle": "Cloud Engineer",
+        "description": "Codified the whole AWS estate in Terraform modules and introduced per-environment cost dashboards."
+      },
+      {
+        "companyName": "Hosting Provider",
+        "jobTitle": "Systems Administrator",
+        "description": "Operated Linux fleets and automated patching with Ansible."
+      }
+    ]
+  },
+  {
+    "profile": {
+      "id": "demo-10",
+      "fullName": "Demo Candidate 10",
+      "title": "Voice AI Engineer: Real-Time Speech and Telephony",
+      "description": "Engineer building voice agents end to end: streaming speech-to-text, low-latency LLM turns, text-to-speech and telephony integration. Measures latency per hop and designs around barge-in."
+    },
+    "skills": [
+      "Python",
+      "WebRTC",
+      "WebSockets",
+      "Streaming ASR",
+      "Text-to-speech",
+      "Twilio",
+      "Voice activity detection",
+      "LLM tool calling",
+      "FastAPI",
+      "Redis",
+      "Latency profiling",
+      "Whisper"
+    ],
+    "certificates": [
+      {
+        "name": "Speech Processing Fundamentals",
+        "description": "Audio features, acoustic models and evaluation of speech recognition systems."
+      }
+    ],
+    "employmentHistory": [
+      {
+        "companyName": "Appointment Scheduling Startup",
+        "jobTitle": "Voice AI Engineer",
+        "description": "Built an outbound-call agent that books appointments, handles interruptions and escalates to a human when confidence drops."
+      },
+      {
+        "companyName": "Contact Centre Software Company",
+        "jobTitle": "Backend Engineer",
+        "description": "Added live transcription and call summaries to an agent-assist product."
+      },
+      {
+        "companyName": "Telecom Integrator",
+        "jobTitle": "Software Developer",
+        "description": "Wrote SIP and media-bridge integrations for customer call flows."
+      }
+    ]
+  },
+  {
+    "profile": {
+      "id": "demo-11",
+      "fullName": "Demo Candidate 11",
+      "title": "Data Engineer: Python, dbt, Airflow and BigQuery",
+      "description": "Data engineer building reliable pipelines and warehouse models: ingestion with Airflow, transformations in dbt, data-quality tests and dashboards analysts trust."
+    },
+    "skills": [
+      "Python",
+      "SQL",
+      "dbt",
+      "Airflow",
+      "BigQuery",
+      "Snowflake",
+      "Fivetran",
+      "Data modelling",
+      "Data quality testing",
+      "Looker",
+      "Pandas",
+      "Docker",
+      "Terraform"
+    ],
+    "certificates": [
+      {
+        "name": "Analytics Engineering Course",
+        "description": "Dimensional modelling, dbt testing and documentation practices."
+      },
+      {
+        "name": "Data Pipeline Reliability Workshop",
+        "description": "Backfills, idempotent loads, alerting and incident review for data teams."
+      }
+    ],
+    "employmentHistory": [
+      {
+        "companyName": "Retail Analytics Company",
+        "jobTitle": "Data Engineer",
+        "description": "Rebuilt nightly loads as idempotent Airflow DAGs and introduced dbt tests that caught schema drift before dashboards broke."
+      },
+      {
+        "companyName": "Marketing Technology Startup",
+        "jobTitle": "Analytics Engineer",
+        "description": "Modelled campaign and attribution data in BigQuery and documented every metric."
+      },
+      {
+        "companyName": "Consultancy",
+        "jobTitle": "BI Developer",
+        "description": "Delivered Looker dashboards and SQL reporting for mid-sized clients."
+      }
+    ]
+  },
+  {
+    "profile": {
+      "id": "demo-12",
+      "fullName": "Demo Candidate 12",
+      "title": "Fractional CTO and Technical Lead for Early-Stage Products",
+      "description": "Technical leader who has run small teams from first commit to production: architecture decisions, hiring, delivery rhythm and vendor selection. Useful when a founder needs an engineering counterpart rather than another pair of hands."
+    },
+    "skills": [
+      "Technical leadership",
+      "Software architecture",
+      "Team building",
+      "Roadmapping",
+      "Code review",
+      "AWS",
+      "TypeScript",
+      "Python",
+      "PostgreSQL",
+      "Due diligence",
+      "Estimation",
+      "Stakeholder communication"
+    ],
+    "certificates": [
+      {
+        "name": "Engineering Management Programme",
+        "description": "Coaching, feedback, hiring loops and delivery metrics for engineering leads."
+      },
+      {
+        "name": "Software Architecture Intensive",
+        "description": "Trade-off analysis, architecture decision records and evolutionary design."
+      }
+    ],
+    "employmentHistory": [
+      {
+        "companyName": "Healthtech Startup",
+        "jobTitle": "Interim CTO",
+        "description": "Set the technical direction, hired the first four engineers and moved the product from prototype to a monitored production system."
+      },
+      {
+        "companyName": "Fintech Scale-up",
+        "jobTitle": "Engineering Lead",
+        "description": "Led a team of seven across backend and mobile, introduced design reviews and weekly release trains."
+      },
+      {
+        "companyName": "Software Studio",
+        "jobTitle": "Senior Developer",
+        "description": "Delivered web platforms for clients and mentored junior developers."
+      }
+    ]
+  }
+]
